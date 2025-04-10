@@ -1,6 +1,6 @@
 use dotenv::dotenv;
 use solana_client::rpc_client::RpcClient;
-use solana_sdk::pubkey::Pubkey;
+use solana_sdk::signature::Signer;
 use std::env;
 
 fn main() {
@@ -16,10 +16,7 @@ fn main() {
         .expect("Keypair must be exactly 64 bytes");
     let keypair = solana_sdk::signature::Keypair::from_bytes(&secret).unwrap();
 
-    // let pubkey = keypair.pubkey();
-    let pubkey_str = "5xERZTsMvaS8u28nUoGjehrF8ysKZXQn6wiX8KB35TR1";
-    let pubkey = pubkey_str.parse::<Pubkey>().expect("Invalid PUBLIC_KEY");
-
+    let pubkey = keypair.pubkey();
     println!("Checking balance for {}", pubkey);
 
     match client.get_balance(&pubkey) {
